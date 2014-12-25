@@ -3,7 +3,6 @@ package rsen.com.guestbook;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.ExifInterface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +13,8 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
+
+import it.sephiroth.android.library.exif2.ExifInterface;
 
 
 /**
@@ -51,11 +52,12 @@ public class MessageFragment extends Fragment {
     }
     public void done()
     {
-        ExifInterface exif;
+
         try {
-            exif = new ExifInterface(file.getAbsolutePath());
-            exif.setAttribute("ImageDescription", message.getText().toString());
-            exif.saveAttributes();
+            ExifInterface exif = new ExifInterface();
+            exif.readExif( file.getAbsolutePath(), ExifInterface.Options.OPTION_ALL );
+            exif.setTag(exif.buildTag(ExifInterface.TAG_IMAGE_DESCRIPTION, message.getText().toString()));
+            exif.writeExif(file.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }
