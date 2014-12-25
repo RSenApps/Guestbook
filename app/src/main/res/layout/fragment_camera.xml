@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <rsen.com.guestbook.AutoFitTextureView
+        android:id="@+id/texture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <TextView
+        android:id="@+id/countdown"
+        android:text="3"
+        android:textSize="150sp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Countdown"
+        android:textSize="30sp"
+        android:padding="10dp"
+        android:elevation="2dp"
+        android:id="@+id/picture"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+      />
+
+</RelativeLayout>
