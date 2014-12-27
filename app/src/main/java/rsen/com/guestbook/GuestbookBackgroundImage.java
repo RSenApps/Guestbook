@@ -88,7 +88,7 @@ public class GuestbookBackgroundImage {
         int w = view.getWidth();
         int h = view.getHeight();
 
-        Rect check = new Rect(x, y, x+w, y+h);
+        Rect check = new Rect(x+250, y+150, x+w-150, y+h-150);
 
         return check.intersect(proposed);
     }

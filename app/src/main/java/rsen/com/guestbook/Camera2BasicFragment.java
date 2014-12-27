@@ -418,6 +418,8 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
 
     @Override
     public void onPause() {
+        timerCancelled = true;
+        timer.cancel();
         closeCamera();
         stopBackgroundThread();
         super.onPause();

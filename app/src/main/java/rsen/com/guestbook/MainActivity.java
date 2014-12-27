@@ -1,11 +1,14 @@
 package rsen.com.guestbook;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -22,6 +25,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import org.w3c.dom.Text;
 
 import java.io.File;
+import java.util.prefs.PreferenceChangeEvent;
 
 
 public class MainActivity extends Activity implements OnCameraFragmentCompleteListener {
@@ -36,6 +40,16 @@ public class MainActivity extends Activity implements OnCameraFragmentCompleteLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
+
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        ActionBar ab = getActionBar();
+        ab.setTitle(PreferenceManager.getDefaultSharedPreferences(this).getString("guestbookname", "Test & Test's") + " Guestbook");
+        ab.setSubtitle("Provided by GuestTech LLC");
+
         setContentView(R.layout.activity_main);
         fragmentManager = getFragmentManager();
         cameraFragment = Camera2BasicFragment.newInstance(this);
@@ -51,7 +65,29 @@ public class MainActivity extends Activity implements OnCameraFragmentCompleteLi
         directory.mkdirs();
         new TestTask().execute();
         layout.addView(new BackgroundView(this, directory), 0);
+
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean("loggedin", false))
+        {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("loggedin", false).commit();
+    }
+
     public View getCardView()
     {
         return findViewById(R.id.card_view);
@@ -66,9 +102,13 @@ public class MainActivity extends Activity implements OnCameraFragmentCompleteLi
     }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
-                INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        try {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.
+                    INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        catch (Exception e)
+        {}
         return true;
     }
     @Override
