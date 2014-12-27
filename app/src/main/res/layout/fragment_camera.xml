@@ -19,10 +19,10 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Countdown"
+        android:text="Ready"
         android:textSize="30sp"
-        android:padding="10dp"
-        android:elevation="2dp"
+        android:padding="20dp"
+        android:elevation="300dp"
         android:id="@+id/picture"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"

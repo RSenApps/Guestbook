@@ -32,12 +32,14 @@ public class SignFragment extends Fragment {
     int width;
     int height;
     File file;
-    public static SignFragment newInstance(int width, int height, File file) {
+    View changeVisibilityWhenDrawn;
+    public static SignFragment newInstance(int width, int height, File file, View changeVisibilityWhenDrawn) {
 
         SignFragment fragment = new SignFragment();
         fragment.width = width;
         fragment.height = height;
         fragment.file = file;
+        fragment.changeVisibilityWhenDrawn = changeVisibilityWhenDrawn;
         fragment.setRetainInstance(true);
         return fragment;
     }
@@ -130,6 +132,7 @@ public class SignFragment extends Fragment {
         }
         private void touch_start(float x, float y) {
             mPath.reset();
+
             mPath.moveTo(x, y);
             mX = x;
             mY = y;
@@ -149,6 +152,7 @@ public class SignFragment extends Fragment {
         private void touch_up() {
             mPath.lineTo(mX, mY);
             circlePath.reset();
+            changeVisibilityWhenDrawn.setVisibility(VISIBLE);
             // commit the path to our offscreen
             mCanvas.drawPath(mPath,  mPaint);
             // kill this so we don't double draw

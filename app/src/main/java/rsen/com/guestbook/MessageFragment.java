@@ -1,15 +1,20 @@
 package rsen.com.guestbook;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,18 +53,30 @@ public class MessageFragment extends Fragment {
         Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
         imageView.setImageBitmap(myBitmap);
         message = (EditText) view.findViewById(R.id.message);
+
+        message.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    done();
+                }
+                return false;
+            }
+        });
         super.onViewCreated(view, savedInstanceState);
     }
+
     public void done()
     {
 
-        try {
-            ExifInterface exif = new ExifInterface();
-            exif.readExif( file.getAbsolutePath(), ExifInterface.Options.OPTION_ALL );
-            exif.setTag(exif.buildTag(ExifInterface.TAG_IMAGE_DESCRIPTION, message.getText().toString()));
-            exif.writeExif(file.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (message.getText().toString().trim().length() > 0) {
+            try {
+                ExifInterface exif = new ExifInterface();
+                exif.readExif(file.getAbsolutePath(), ExifInterface.Options.OPTION_ALL);
+                exif.setTag(exif.buildTag(ExifInterface.TAG_IMAGE_DESCRIPTION, message.getText().toString()));
+                exif.writeExif(file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

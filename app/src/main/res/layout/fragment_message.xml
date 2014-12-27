@@ -1,24 +1,26 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:padding="20dp" android:orientation="vertical"
-    android:layout_height="match_parent" tools:context="rsen.com.guestbook.MessageFragment">
+    android:layout_height="500dp" tools:context="rsen.com.guestbook.MessageFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/imageView"
-        android:layout_gravity="center_horizontal"/>
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:minLines="3"
         android:id="@+id/message"
+        android:layout_alignParentBottom="true"
+        android:imeOptions="actionDone"
+        android:hint="Optional: Type a personal message"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/message"
+        android:layout_alignParentTop="true"
+        android:id="@+id/imageView"
+        android:layout_centerHorizontal="true"/>
 
-        android:hint="Type a personal message"
-         />
-</LinearLayout>
+
+</RelativeLayout>
