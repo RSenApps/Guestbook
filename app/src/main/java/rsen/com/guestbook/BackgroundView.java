@@ -32,7 +32,7 @@ public class BackgroundView extends View {
             countdownToDrawNew--;
             if(countdownToDrawNew<=0)
             {
-                countdownToDrawNew = 40;
+                countdownToDrawNew = 10;
                 drawNew();
             }
             for (GuestbookBackgroundImage image : images)
@@ -118,7 +118,6 @@ public class BackgroundView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        images = new ArrayList<>();
 
     }
     @Override

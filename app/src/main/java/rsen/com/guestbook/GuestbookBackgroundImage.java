@@ -66,31 +66,42 @@ public class GuestbookBackgroundImage {
 
     public void newPosition()
     {
-        while (true) {
-            rotate = random.nextInt(90) - 45;
-            x = random.nextInt(maxX);
-            y = random.nextInt(maxY);
-            Rect proposed = new Rect(x, y, x+w, y+h);
-            if (!isViewContains(foreground, proposed))
-            {
-                matrix = new Matrix();
-                matrix.setRotate(rotate, bitmap.getWidth()/2, bitmap.getHeight()/2);
-                matrix.postTranslate(x, y);
-                break;
-            }
-        }
-    }
-    private boolean isViewContains(View view, Rect proposed) {
         int[] l = new int[2];
-        view.getLocationOnScreen(l);
-        int x = l[0];
-        int y = l[1];
-        int w = view.getWidth();
-        int h = view.getHeight();
+        foreground.getLocationOnScreen(l);
+        int foregroundx = l[0];
+        int foregroundy = l[1];
+        int foregroundw = foreground.getWidth();
+        int foregroundh = foreground.getHeight();
+        if (random.nextInt(20)==1)
+        {
+            //place at top
+            x = foregroundx + random.nextInt(foregroundw);
+            y = random.nextInt(foregroundy+h) - h;
+        }
+        else if (random.nextInt(20) == 1)
+        {
+            //place at bottom
+            x = foregroundx + random.nextInt(foregroundw);
+            y = foregroundy + foregroundh + random.nextInt(maxY - foregroundy - foregroundh + h) - h;
+        }
+        else if (random.nextBoolean())
+        {
+            //left side of screen
+            x = random.nextInt(foregroundx+w)-w;
+            y = random.nextInt(maxY+h)-h;
+        }
+        else {
+            //right side of screen
+            x = random.nextInt(maxX - foregroundx - foregroundw+w) + foregroundx + foregroundw-w;
+            y = random.nextInt(maxY+h)-h;
+        }
 
-        Rect check = new Rect(x+250, y+150, x+w-150, y+h-150);
+        rotate = random.nextInt(90) - 45;
 
-        return check.intersect(proposed);
+        matrix = new Matrix();
+        matrix.setRotate(rotate, bitmap.getWidth()/2, bitmap.getHeight()/2);
+        matrix.postTranslate(x, y);
+
     }
     public void updateAlpha()
     {
