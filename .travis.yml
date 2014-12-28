@@ -28,8 +28,8 @@ before_install:
  - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
  - echo yes | android update sdk --filter extra-google-m2repository --no-ui --force > /dev/null
  - export TERM=dumb
-script: 
  - sudo chmod +x gradlew
+script:
  - ./gradlew assembleRelease
 branches:
   only:
