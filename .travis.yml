@@ -9,9 +9,9 @@ before_install:
  - if [ `uname -m` = x86_64 ]; then sudo apt-get update; fi
  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
   # newer version of gradle
- - wget http://services.gradle.org/distributions/gradle-1.11-bin.zip
- - unzip -qq gradle-1.11-bin.zip
- - export GRADLE_HOME=$PWD/gradle-1.11
+ - wget http://services.gradle.org/distributions/gradle-2.2.1-bin.zip
+ - unzip -qq gradle-2.2.1-bin.zip
+ - export GRADLE_HOME=$PWD/gradle-2.2.1
  - export PATH=$GRADLE_HOME/bin:$PATH
  - gradle -v
  - wget http://dl.google.com/android/android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
@@ -22,8 +22,8 @@ before_install:
  # manually set sdk.dir variable, according to local paths
  - echo "sdk.dir=$ANDROID_HOME" > local.properties
  - echo yes | android update sdk --filter platform-tools --no-ui --force > /dev/null
- - echo yes | android update sdk --all --filter build-tools-19.0.3 --no-ui --force > /dev/null
- - echo yes | android update sdk --filter android-19 --no-ui --force > /dev/null
+ - echo yes | android update sdk --all --filter build-tools-21.1.2 --no-ui --force > /dev/null
+ - echo yes | android update sdk --filter android-21 --no-ui --force > /dev/null
  - echo yes | android update sdk --filter extra-android-support --no-ui --force > /dev/null
  - echo yes | android update sdk --filter extra-android-m2repository --no-ui --force > /dev/null
  - echo yes | android update sdk --filter extra-google-m2repository --no-ui --force > /dev/null
