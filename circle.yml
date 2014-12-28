@@ -1,9 +1,15 @@
 machine:
   environment:
     ANDROID_HOME: /home/ubuntu/android
+
 dependencies:
   cache_directories:
     - ~/.android
     - ~/android
   override:
     - ./install-dependencies.sh
+    - ./gradlew -v
+    - ./gradlew dependencies --info
+test:
+  override:
+    - ./gradlew assembleRelease
