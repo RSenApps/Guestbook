@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.transition.TransitionInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -42,7 +43,6 @@ public class MainActivity extends Activity implements OnCameraFragmentCompleteLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Crashlytics.start(this);
-        setupUI(findViewById(R.id.layout));
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -53,6 +53,7 @@ public class MainActivity extends Activity implements OnCameraFragmentCompleteLi
         ab.setSubtitle("Provided by GuestTech LLC");
 
         setContentView(R.layout.activity_main);
+        setupUI(findViewById(R.id.layout));
         fragmentManager = getFragmentManager();
         cameraFragment = Camera2BasicFragment.newInstance(this);
         fragmentManager.beginTransaction().add(R.id.card_layout, cameraFragment).commit();

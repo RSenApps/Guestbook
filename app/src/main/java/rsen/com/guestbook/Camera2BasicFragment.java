@@ -16,6 +16,7 @@
 
 package rsen.com.guestbook;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -52,7 +53,9 @@ import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -382,7 +385,27 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_camera, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
+        rootView.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
+        {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop,
+                                       int oldRight, int oldBottom)
+            {
+                v.removeOnLayoutChangeListener(this);
+                int cx = (right-left)/2 + left;
+                int cy = (bottom-top)/2 + top;
+
+                // get the hypothenuse so the radius is from one corner to the other
+                int radius = (int)Math.hypot(right, bottom);
+
+                Animator reveal = ViewAnimationUtils.createCircularReveal(v, cx, cy, 0, radius);
+                reveal.setInterpolator(new DecelerateInterpolator(2f));
+                reveal.setDuration(1000);
+                reveal.start();
+            }
+        });
+        return rootView;
     }
 
     @Override
@@ -610,7 +633,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
                         }
                     }, null
             );
-        } catch (CameraAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -684,7 +707,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
             mState = STATE_WAITING_PRECAPTURE;
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
                     mBackgroundHandler);
-        } catch (CameraAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -728,7 +751,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
 
             mCaptureSession.stopRepeating();
             mCaptureSession.capture(captureBuilder.build(), CaptureCallback, null);
-        } catch (CameraAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
