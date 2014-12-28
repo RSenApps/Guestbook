@@ -30,7 +30,7 @@ before_install:
  - export TERM=dumb
  - sudo chmod +x gradlew
 script:
- - ./gradlew assembleRelease
+ - ./gradlew assembleRelease crashlyticsUploadDistributionRelease
 branches:
   only:
     - master
