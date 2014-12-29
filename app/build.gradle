@@ -31,6 +31,14 @@ android {
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
     }
+    signingConfigs {
+        release {
+            storeFile file("guestbookkeystore.jks")
+            storePassword System.getenv("pswd")
+            keyAlias "guestbook"
+            keyPassword System.getenv("pswd")
+        }
+    }
     defaultConfig {
         applicationId "rsen.com.guestbook"
         minSdkVersion 21
@@ -41,6 +49,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
