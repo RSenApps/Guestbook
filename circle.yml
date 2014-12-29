@@ -12,4 +12,4 @@ dependencies:
     - ./gradlew dependencies --info
 test:
   override:
-    - ./gradlew assembleRelease crashlyticsUploadDistributionRelease
+    - ./gradlew assembleRelease crashlyticsUploadDistributionRelease -PdisablePreDex
