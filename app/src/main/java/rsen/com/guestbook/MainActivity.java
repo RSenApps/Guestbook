@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements OnCameraFragmentCompleteLi
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         ActionBar ab = getActionBar();
         ab.setTitle(PreferenceManager.getDefaultSharedPreferences(this).getString("guestbookname", "Test & Test's") + " Guestbook");
-        ab.setSubtitle("Provided by GuestTech LLC");
+        ab.setSubtitle("Provided by GuestTech");
 
         setContentView(R.layout.activity_main);
         setupUI(findViewById(R.id.layout));
