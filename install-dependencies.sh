@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Fix the CircleCI path
-export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH:$ANDROID_HOME/build-tools"
 
-DEPS="$ANDROID_HOME/installed-dependencies"
+DEPS="$ANDROID_HOME"
 
 #Check ENV
 echo ANDROID_HOME = $ANDROID_HOME
