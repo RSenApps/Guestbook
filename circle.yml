@@ -10,7 +10,7 @@ dependencies:
     - ./install-dependencies.sh
     - ./gradlew -v
     - ./gradlew dependencies --info
-    - find /home/ubuntu/android/build-tools
+    - ls /home/ubuntu/android/
 test:
   override:
     - ./gradlew assembleRelease crashlyticsUploadDistributionRelease -PdisablePreDex
