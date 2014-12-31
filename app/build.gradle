@@ -49,6 +49,7 @@ android {
         release {
             minifyEnabled false
             signingConfig signingConfigs.release
+            ext.betaDistributionEmails="summer18@stanford.edu"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

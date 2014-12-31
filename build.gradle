@@ -12,7 +12,6 @@ buildscript {
     }
 
 }
-ext.betaDistributionEmails="summer18@stanford.edu"
 project.ext.preDexLibs = !project.hasProperty('disablePreDex')
 
 subprojects {
