@@ -25,6 +25,9 @@ public class BackgroundView extends View {
     int height;
     Random random = new Random();
     int countdownToDrawNew = 5;
+
+    boolean dontAddMoreImages = false;
+
     Handler updateViewHandler = new Handler();
     Runnable updateViewRunnable = new Runnable() {
         @Override
@@ -44,10 +47,16 @@ public class BackgroundView extends View {
             updateViewHandler.postDelayed(updateViewRunnable, 100);
         }
     };
+
+    public void runningLowOnMemory()
+    {
+        dontAddMoreImages = true;
+    }
+
     private void drawNew()
     {
         File[] files = dir.listFiles();
-        if (files.length > images.size())
+        if (!dontAddMoreImages && files.length > images.size())
         {
             for (final File file : files)
             {

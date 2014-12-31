@@ -39,6 +39,7 @@ public class MainActivity extends Activity implements OnCameraFragmentCompleteLi
     TextView title;
     TextView detail;
     Camera2BasicFragment cameraFragment;
+    BackgroundView backgroundView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,8 +68,18 @@ public class MainActivity extends Activity implements OnCameraFragmentCompleteLi
                 Environment.DIRECTORY_PICTURES), "GuestBook");
         directory.mkdirs();
         new TestTask().execute();
-        layout.addView(new BackgroundView(this, directory), 0);
+        backgroundView = new BackgroundView(this, directory);
+        layout.addView(backgroundView, 0);
 
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        if (level == TRIM_MEMORY_RUNNING_CRITICAL || level == TRIM_MEMORY_RUNNING_LOW)
+        {
+            backgroundView.runningLowOnMemory();
+        }
+        super.onTrimMemory(level);
     }
 
     @Override
