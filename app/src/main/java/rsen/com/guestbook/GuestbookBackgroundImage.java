@@ -72,28 +72,29 @@ public class GuestbookBackgroundImage {
         int foregroundy = l[1];
         int foregroundw = foreground.getWidth();
         int foregroundh = foreground.getHeight();
-        if (random.nextInt(20)==1)
-        {
-            //place at top
-            x = foregroundx + random.nextInt(foregroundw);
-            y = random.nextInt(foregroundy+h) - h;
+        try {
+            if (random.nextInt(20) == 1) {
+                //place at top
+                x = foregroundx + random.nextInt(foregroundw);
+                y = random.nextInt(foregroundy + h) - h;
+            } else if (random.nextInt(20) == 1) {
+                //place at bottom
+                x = foregroundx + random.nextInt(foregroundw);
+                y = foregroundy + foregroundh + random.nextInt(maxY - foregroundy - foregroundh + h) - h;
+            } else if (random.nextBoolean()) {
+                //left side of screen
+                x = random.nextInt(foregroundx + w) - w;
+                y = random.nextInt(maxY + h) - h;
+            } else {
+                //right side of screen
+                x = random.nextInt(maxX - foregroundx - foregroundw + w) + foregroundx + foregroundw - w;
+                y = random.nextInt(maxY + h) - h;
+            }
         }
-        else if (random.nextInt(20) == 1)
+        catch (Exception e)
         {
-            //place at bottom
-            x = foregroundx + random.nextInt(foregroundw);
-            y = foregroundy + foregroundh + random.nextInt(maxY - foregroundy - foregroundh + h) - h;
-        }
-        else if (random.nextBoolean())
-        {
-            //left side of screen
-            x = random.nextInt(foregroundx+w)-w;
-            y = random.nextInt(maxY+h)-h;
-        }
-        else {
-            //right side of screen
-            x = random.nextInt(maxX - foregroundx - foregroundw+w) + foregroundx + foregroundw-w;
-            y = random.nextInt(maxY+h)-h;
+            x = random.nextInt(maxX);
+            y = random.nextInt(maxY);
         }
 
         rotate = random.nextInt(90) - 45;
